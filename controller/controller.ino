@@ -8,14 +8,14 @@
 
 MotorDriver vibe;
 Stepper stepper(STEPS, 3, 4, 5, 6);
-#define solenoid 0
+#define solenoid 25
 
 Servo solenoidAssist;
 
 #define screwHolderOffset 0
 Servo screwHolder;
 
-#define screwSensor A5
+#define screwSensor A4
 
 bool once;
 //
@@ -56,7 +56,7 @@ void setup() {
   // put your setup code here, to run once:
   Serial.begin(115200);
 
-  vibe.setup(5,6);
+  vibe.setup(22,23);
   stepper.setSpeed(5); 
   pinMode(solenoid, OUTPUT);
 
@@ -70,14 +70,16 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
+// vibe.setPower(150);
   if(once){
     solenoidAssist.write(40);
-    screwHolder.write(180);
+    screwHolder.write(65);
+//    delay(2000);
 //    grabScrews();
     
     once = false;
   }
-  Serial.println("hello");
-//  Serial.println(analogRead(screwSensor));
+//  vibe.setPower(150);
+    Serial.println(analogRead(screwSensor));
   delay(10);
 }
