@@ -28,7 +28,7 @@ bool once;
 //}
 
 void grabScrews(){
-  const int HOLDER_ONE = 65;
+  const int HOLDER_ONE = 64;
   solenoidAssist.write(40);
   screwHolder.write(HOLDER_ONE);
   
@@ -70,12 +70,13 @@ void setup() {
 
 void loop() {
   // put your main code here, to run repeatedly:
-// vibe.setPower(150);
+ vibe.setPower(200);
   if(once){
     solenoidAssist.write(40);
-    screwHolder.write(65);
-//    delay(2000);
-//    grabScrews();
+    screwHolder.write(64);
+    while(analogRead(screwSensor) > 800) delay(10);
+    delay(1000);
+    grabScrews();
     
     once = false;
   }
