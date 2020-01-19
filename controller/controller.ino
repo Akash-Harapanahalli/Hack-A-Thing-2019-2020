@@ -1,13 +1,14 @@
 #include "MotorDriver.h"
 #include <Stepper.h>
 #include <Servo.h>
-//#include <TeensyThreads.h>
+#include <TeensyThreads.h>
 
 #define STEPS 513
 #define LOOP_DELAY 10
 
 MotorDriver vibe;
-Stepper stepper(STEPS, 3, 4, 5, 6);
+Stepper stepper_auger(STEPS, 3, 4, 5, 6);
+Stepper stepper_screwholder(STEPS, 23, 22, 21, 20);
 #define solenoid 25
 
 Servo solenoidAssist;
@@ -18,14 +19,19 @@ Servo screwHolder;
 #define screwSensor A4
 
 bool once;
-//
-//void stepperThread(){
-//  while(1){
-//    stepper.step(STEPS * 1.5);
-//    threads.delay(1000);
-//    threads.yield();
-//  }
-//}
+
+#define HALTED 0
+#define GOING  1
+int screwHolderState = 0;
+
+void stepper_augerThread(){
+  while(1){
+    stepper_auger.step(100000);
+    stepper_screwholder.step(100000);
+    threads.delay(1000);
+    threads.yield();
+  }
+}
 
 void grabScrews(){
   const int HOLDER_ONE = 64;
@@ -57,20 +63,21 @@ void setup() {
   Serial.begin(115200);
 
   vibe.setup(22,23);
-  stepper.setSpeed(5); 
+  stepper_auger.setSpeed(10); 
+  stepper_screwholder.setSpeed(5);
   pinMode(solenoid, OUTPUT);
 
   solenoidAssist.attach(9);
   screwHolder.attach(10);
 
-//  threads.addThread(stepperThread);
+  threads.addThread(stepper_augerThread);
 
   once = true;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
- vibe.setPower(200);
+  vibe.setPower(165);
   if(once){
     solenoidAssist.write(40);
     screwHolder.write(64);

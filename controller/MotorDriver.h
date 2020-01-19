@@ -11,14 +11,14 @@ private:
     /**
      * The two leads that take input signal to power the motor.
      */
-    int in1;
-    int in2;
+    int input1;
+    int input2;
 
 public:
     /**
      * Sets up the digital out pins and the PID if specified.
      */
-    void setup(int _in1, int _in2);
+    void setup(int _input1, int _input2);
 
     /**
      * Power is taken in the range from -255 to 255 (dual 8-bit)

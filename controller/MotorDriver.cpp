@@ -11,11 +11,11 @@
 /**
  * Sets up the digital out pins and the PID if specified.
  */
-void MotorDriver::setup(int _in1, int _in2){
-    this->in1 = _in1;
-    this->in2 = _in2;
-    pinMode(_in1, OUTPUT);
-    pinMode(_in2, OUTPUT);
+void MotorDriver::setup(int _input1, int _input2){
+    this->input1 = _input1;
+    this->input2 = _input2;
+    pinMode(_input1, OUTPUT);
+    pinMode(_input2, OUTPUT);
 }
 
 /**
@@ -25,14 +25,14 @@ void MotorDriver::setup(int _in1, int _in2){
  */
 void MotorDriver::setPower(int power){
     if(power > 0){
-        analogWrite(this->in1, LOW);
-        analogWrite(this->in2, power);
+        analogWrite(this->input1, LOW);
+        analogWrite(this->input2, power);
     } else if(power < 0){
-        analogWrite(this->in1, abs(power));
-        analogWrite(this->in2, LOW);
+        analogWrite(this->input1, abs(power));
+        analogWrite(this->input2, LOW);
     } else {
-        analogWrite(this->in1, LOW);
-        analogWrite(this->in2, LOW);
+        analogWrite(this->input1, LOW);
+        analogWrite(this->input2, LOW);
     }
 }
 
