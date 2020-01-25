@@ -1,6 +1,7 @@
 #ifndef __MOTORDRIVER_H__
 #define __MOTORDRIVER_H__
 
+#include "Arduino.h"
 /**
  * MotorDriver.h
  * A wrapper to work with the DRV8871 Motor Driver.
@@ -18,7 +19,7 @@ public:
     /**
      * Sets up the digital out pins and the PID if specified.
      */
-    void setup(int _input1, int _input2);
+    void begin(int _input1, int _input2);
 
     /**
      * Power is taken in the range from -255 to 255 (dual 8-bit)

@@ -6,12 +6,11 @@
  */
 
 #include "MotorDriver.h"
-#include <Arduino.h>
 
 /**
  * Sets up the digital out pins and the PID if specified.
  */
-void MotorDriver::setup(int _input1, int _input2){
+void MotorDriver::begin(int _input1, int _input2){
     this->input1 = _input1;
     this->input2 = _input2;
     pinMode(_input1, OUTPUT);
@@ -26,9 +25,9 @@ void MotorDriver::setup(int _input1, int _input2){
 void MotorDriver::setPower(int power){
     if(power > 0){
         analogWrite(this->input1, LOW);
-        analogWrite(this->input2, power);
+        (power >= 255) ? analogWrite(this->input2, 255) : analogWrite(this->input2, power);
     } else if(power < 0){
-        analogWrite(this->input1, abs(power));
+        (abs(power) >= 255) ? analogWrite(this->input1, 255) : analogWrite(this->input1, abs(power));
         analogWrite(this->input2, LOW);
     } else {
         analogWrite(this->input1, LOW);

@@ -1,20 +1,20 @@
-#ifndef __ENCODER_H__
-#define __ENCODER_H__
+#ifndef ENCODER_H
+#define ENCODER_H
 
-/**
- * Encoder.h
- */
-
-#include <FreqMeasureMulti.h>
+#include "Arduino.h"
 
 class Encoder {
 private:
-    uint8_t  input;
-    int32_t  position;          // position in teeth
-    int16_t  speed;             // speed in teeth / s
-    uint16_t toneWheelTeeth;
+    uint8_t  pin_;
+    uint16_t  current_position_; // position in teeth
 
-}
+public:
+    Encoder();
+
+    void begin(uint8_t pin, void (*isr)());
+    void isr_();
+    uint16_t get_position();
+};
 
 
 
