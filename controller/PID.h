@@ -20,20 +20,14 @@ private:
     int16_t min_power_, max_power_;
 
 public:
-    /**
-     * The constructor defines the PID constants and tells the PID how long the loop is that it is called in.
-     */
     PID();
     PID(float kP, float kI, float kD, int16_t min_power, int16_t max_power);
 
+    // Sets the constants outside of the constructor.
     void set_constants(float kP, float kI, float kD);
-    void set_bounds(int16_t min_power, int16_t max_power);
 
-    /**
-     * The step function is an instantaneous step that calculates and returns a new power value.
-     * This needs to be called within a closed loop where the parameter error is constantly updated.
-     * PID output is in the range from min_power to max_power.
-     */
+    // Iterates once through the PID controller and returns the correctional power.
+    // This needs to be called within a closed loop where the parameter error is constantly updated.
     int16_t step(float error);
 };
 
